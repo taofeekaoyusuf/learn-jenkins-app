@@ -33,10 +33,27 @@ pipeline {
                     test -f build/index.html
                     test -f src/index.js
                     test -f src/index.css
-                    npm test --detectOpenHandles
+                    npm test
                 '''
             }
         }
+
+        stage('Deploy') {
+                    agent {
+                        docker {
+                            image 'node:24-alpine'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh '''
+                            npm install netlify-cli
+                            node_modules/.bin/netlify --version
+                        '''
+                    }
+        }
+
+
     }
 
     post {
