@@ -13,6 +13,10 @@ pipeline {
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
     }
 
+    triggers {
+        pollSCM '* * * * *'
+    }
+
     stages {
         stage('Prepare Environment') {
             steps {
