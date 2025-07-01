@@ -3,6 +3,7 @@ pipeline {
     agent {
         docker {
             image 'node:24-alpine'
+            args '-u root' // Run as root to avoid apk permission issues
             reuseNode true
         }
     }
